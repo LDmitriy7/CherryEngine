@@ -3,7 +3,8 @@ import * as PIXI from "pixi.js"
 const ASSET_IDS: string[] = []
 
 class Assets {
-  add(id: string, src: string) {
+  add(id: string | number, src: string) {
+    id = id.toString()
     PIXI.Assets.add({ alias: id, src: src })
     ASSET_IDS.push(id)
   }
