@@ -1,19 +1,6 @@
-import Phaser from 'phaser'
+// import { createGame } from "./engine"
+// import Scene1 from "./scene1"
 
-import HelloWorldScene from './HelloWorldScene'
+// export default createGame(Scene1)
 
-const config: Phaser.Types.Core.GameConfig = {
-	type: Phaser.AUTO,
-	parent: 'app',
-	width: 800,
-	height: 600,
-	physics: {
-		default: 'arcade',
-		arcade: {
-			gravity: { y: 200 },
-		},
-	},
-	scene: [HelloWorldScene],
-}
-
-export default new Phaser.Game(config)
+import "./game"
