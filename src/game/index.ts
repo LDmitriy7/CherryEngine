@@ -1,4 +1,7 @@
 import { assets, scene } from "../engine"
+import { loadScene } from "../engine/sceneLoader"
+import scene1 from "./scene.json"
+import "./temp"
 
 enum AssetIds {
   bg,
@@ -18,6 +21,7 @@ function main() {
   label.y = -220
   label.style.fontWeight = "bold"
   createContact()
+  loadScene(scene1)
 }
 
 function createContact() {
