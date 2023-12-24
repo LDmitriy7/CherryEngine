@@ -1,18 +1,7 @@
 import { root } from "../engine/scene"
 import { Attrs, getAttrs, setAttrs } from "./attr"
-import {
-  Entity,
-  ImageEntity,
-  LabelEntity,
-  WhiteBoldLabelEntity,
-} from "./entities"
+import { Entity, EntityClass, EntityTypes } from "./entities"
 import { moveArrayItem } from "./lib"
-
-const ENTITY_CONSTRUCTORS: Record<string, new () => Entity> = {
-  image: ImageEntity,
-  label: LabelEntity,
-  whiteBoldLabel: WhiteBoldLabelEntity,
-}
 
 export const ENTITIES: Entity[] = []
 
@@ -36,9 +25,12 @@ function saveEntities() {
 export class Editor {
   root = root
 
-  add(entityType: string) {
-    const constructor = ENTITY_CONSTRUCTORS[entityType]
-    if (!constructor) throw new Error(`Unknown entity type: ${entityType}`)
+  add(entityType: string | EntityClass) {
+    let constructor: EntityClass
+    if (typeof entityType == "string") {
+      constructor = EntityTypes[entityType]
+      if (!constructor) throw new Error(`Unknown entity type: ${entityType}`)
+    } else constructor = entityType
     const entity = new constructor()
     ENTITIES.push(entity)
     return entity

@@ -1,8 +1,8 @@
+import { entity } from "./entity"
 import { LabelEntity } from "./labelEntity"
 
+@entity()
 export class WhiteBoldLabelEntity extends LabelEntity {
-  type = "whiteBoldLabel"
-
   constructor() {
     super()
     this.weight = "bold"

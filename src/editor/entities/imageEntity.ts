@@ -1,11 +1,12 @@
 import { scene } from "../../engine"
 import { AssetIds } from "../assets"
 import { attr } from "../attr"
+import { entity } from "./entity"
 import { SpatialEntity } from "./spatialEntity"
 import * as PIXI from "pixi.js"
 
+@entity()
 export class ImageEntity extends SpatialEntity<PIXI.Sprite> {
-  type = "image"
   private _texture: string = AssetIds.square
 
   constructor() {

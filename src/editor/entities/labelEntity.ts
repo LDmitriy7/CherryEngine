@@ -1,11 +1,11 @@
 import { scene } from "../../engine"
 import { attr } from "../attr"
+import { entity } from "./entity"
 import { SpatialEntity } from "./spatialEntity"
 import * as PIXI from "pixi.js"
 
+@entity()
 export class LabelEntity extends SpatialEntity<PIXI.Text> {
-  type = "label"
-
   constructor() {
     super(scene.addLabel("text"))
   }

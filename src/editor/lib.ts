@@ -9,3 +9,5 @@ export function moveArrayItem<T>(
 ) {
   array.splice(newIndex, 0, array.splice(oldIndex, 1)[0])
 }
+
+export type Class<T> = new () => T
