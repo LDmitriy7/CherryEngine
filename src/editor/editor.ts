@@ -7,23 +7,42 @@ export const ENTITIES: Entity[] = []
 
 const KEY_ENTITIES = "__entities__"
 
-type EntityData = { type: string; name?: string; attrs: Attrs }
-
 export function findEntity(name: string) {
   return ENTITIES.find((e) => e.name == name)
 }
 
 function saveEntities() {
-  const items: EntityData[] = ENTITIES.map((e) => ({
-    type: e.type,
-    attrs: getAttrs(e),
-    name: e.name,
-  }))
-  localStorage[KEY_ENTITIES] = JSON.stringify(items)
+  localStorage[KEY_ENTITIES] = serializeEntities()
 }
+
+class EntityData {
+  id: string
+  type: string
+  name: string
+  attrs: Attrs
+
+  constructor(entity: Entity) {
+    this.type = entity.type
+    this.id = entity.id
+    this.name = entity.name
+    this.attrs = getAttrs(entity)
+  }
+}
+
+function createEntityData(entity: Entity) {
+  return new EntityData(entity)
+}
+
+function serializeEntities() {
+  const items: EntityData[] = ENTITIES.map(createEntityData)
+  return JSON.stringify(items)
+}
+
+Object.assign(window, { serializeEntities })
 
 export class Editor {
   root = root
+  lastEntity?: Entity
 
   add(entityType: string | EntityClass) {
     let constructor: EntityClass
@@ -33,7 +52,15 @@ export class Editor {
     } else constructor = entityType
     const entity = new constructor()
     ENTITIES.push(entity)
+    this.lastEntity = entity
     return entity
+  }
+
+  remove(entity: Entity) {
+    let index = ENTITIES.indexOf(entity)
+    if (index !== -1) ENTITIES.splice(index)
+    index = root.children.indexOf(entity.base)
+    if (index !== -1) root.children.splice(index)
   }
 
   reorder(entity: Entity, newIndex: number) {
@@ -54,12 +81,18 @@ export class Editor {
     this.loadEntities()
   }
 
+  removeLastEntity() {
+    if (!this.lastEntity) return
+    this.remove(this.lastEntity)
+  }
+
   private loadEntities() {
     const data = localStorage[KEY_ENTITIES]
     if (!data) return
     const items = JSON.parse(data) as EntityData[]
     items.forEach((i) => {
       const entity = this.add(i.type)
+      entity.id = i.id
       entity.name = i.name
       setAttrs(entity, i.attrs)
     })

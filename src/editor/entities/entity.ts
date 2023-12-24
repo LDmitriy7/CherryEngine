@@ -5,11 +5,12 @@ import { Class } from "../lib"
 export class Entity<T extends PIXI.DisplayObject = PIXI.DisplayObject> {
   id: string
   type: string
-  name?: string
+  name: string
 
   constructor(public base: T) {
     this.id = uid()
     this.type = this.constructor.name
+    this.name = this.type.replace(/Entity$/, "")
   }
 }
 
