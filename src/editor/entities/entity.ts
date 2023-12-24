@@ -1,5 +1,5 @@
 import * as PIXI from "pixi.js"
-import { uid } from "./lib"
+import { uid } from "../lib"
 
 export class Entity<T extends PIXI.DisplayObject = PIXI.DisplayObject> {
   id: string

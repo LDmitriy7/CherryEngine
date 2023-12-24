@@ -1,10 +1,12 @@
 import { root } from "../engine/scene"
 import { Attrs, getAttrs, setAttrs } from "./attr"
-import { Entity } from "./entity"
-import { ImageEntity } from "./imageEntity"
-import { LabelEntity } from "./labelEntity"
+import {
+  Entity,
+  ImageEntity,
+  LabelEntity,
+  WhiteBoldLabelEntity,
+} from "./entities"
 import { moveArrayItem } from "./lib"
-import { WhiteBoldLabelEntity } from "./whiteBoldLabelEntity"
 
 const ENTITY_CONSTRUCTORS: Record<string, new () => Entity> = {
   image: ImageEntity,

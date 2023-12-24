@@ -1,5 +1,5 @@
-import { scene } from "../engine"
-import { attr } from "./attr"
+import { scene } from "../../engine"
+import { attr } from "../attr"
 import { SpatialEntity } from "./spatialEntity"
 import * as PIXI from "pixi.js"
 

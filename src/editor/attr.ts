@@ -1,4 +1,4 @@
-import { Entity } from "./entity"
+import { Entity } from "./entities"
 
 export const KEY_ATTRS = "__attrs__"
 export type IEntity = { [KEY_ATTRS]: string[] }

@@ -1,4 +1,4 @@
-import { attr } from "./attr"
+import { attr } from "../attr"
 import { Entity } from "./entity"
 import * as PIXI from "pixi.js"
 
