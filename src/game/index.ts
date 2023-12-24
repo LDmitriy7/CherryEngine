@@ -13,15 +13,8 @@ assets.add(AssetIds.panel, "panel.png")
 assets.add(AssetIds.contact, "contact.png")
 
 function main() {
-  // scene.addImage(AssetIds.bg, 0.7)
-  // const panel = scene.addImage(AssetIds.panel, 0.35)
-  // panel.tint = "black"
-  // const label = scene.addLabel("МОИ КОНТАКТЫ", "white")
-  // label.y = -220
-  // label.style.fontWeight = "bold"
-  // createContact()
-  // loadScene(scene1)
-  editor.load()
+  editor.restore()
+  setInterval(() => editor.backup(), 3000)
 }
 
 // function createContact() {

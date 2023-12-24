@@ -5,32 +5,46 @@ import { moveArrayItem } from "./lib"
 
 export const ENTITIES: Entity[] = []
 
+const KEY_BACKUP_ENTITIES = "__backupEntities__"
 const KEY_ENTITIES = "__entities__"
 
-export function findEntity(name: string) {
-  return ENTITIES.find((e) => e.name == name)
+class EntityStorage {
+  save = () => this._save(KEY_ENTITIES)
+  load = () => this._load(KEY_ENTITIES)
+  backup = () => this._save(KEY_BACKUP_ENTITIES)
+  restore = () => this._load(KEY_BACKUP_ENTITIES)
+
+  revert() {
+    localStorage[KEY_BACKUP_ENTITIES] = localStorage[KEY_ENTITIES]
+  }
+
+  private _load(key: string) {
+    const data = localStorage[key]
+    if (!data) return []
+    return JSON.parse(data) as EntityData[]
+  }
+
+  private _save(key: string) {
+    localStorage[key] = serializeEntities()
+  }
 }
 
-function saveEntities() {
-  localStorage[KEY_ENTITIES] = serializeEntities()
-}
+const entityStorage = new EntityStorage()
 
-class EntityData {
+type EntityData = {
   id: string
   type: string
   name: string
   attrs: Attrs
-
-  constructor(entity: Entity) {
-    this.type = entity.type
-    this.id = entity.id
-    this.name = entity.name
-    this.attrs = getAttrs(entity)
-  }
 }
 
-function createEntityData(entity: Entity) {
-  return new EntityData(entity)
+function createEntityData(entity: Entity): EntityData {
+  return {
+    type: entity.type,
+    id: entity.id,
+    name: entity.name,
+    attrs: getAttrs(entity),
+  }
 }
 
 function serializeEntities() {
@@ -56,12 +70,21 @@ export class Editor {
     return entity
   }
 
+  get entityNames() {
+    return ENTITIES.map((e) => e.name)
+  }
+
+  find(entityName: string) {
+    return ENTITIES.find((e) => e.name == entityName)
+  }
+
   remove(entity: Entity) {
     let index = ENTITIES.indexOf(entity)
     if (index !== -1) ENTITIES.splice(index)
     index = root.children.indexOf(entity.base)
-    if (index !== -1) root.children.splice(index)
+    if (index !== -1) root.children[index].destroy()
   }
+  delete = this.remove
 
   reorder(entity: Entity, newIndex: number) {
     let oldIndex = ENTITIES.indexOf(entity)
@@ -73,23 +96,22 @@ export class Editor {
     moveArrayItem(this.root.children, oldIndex, newIndex)
   }
 
-  save() {
-    saveEntities()
-  }
+  save = () => entityStorage.save()
+  backup = () => entityStorage.backup()
+  restore = () => this._loadEntities(entityStorage.restore())
 
-  load() {
-    this.loadEntities()
+  revert() {
+    entityStorage.revert()
+    location.reload()
   }
 
   removeLastEntity() {
     if (!this.lastEntity) return
     this.remove(this.lastEntity)
   }
+  deleteLastEntity = this.removeLastEntity
 
-  private loadEntities() {
-    const data = localStorage[KEY_ENTITIES]
-    if (!data) return
-    const items = JSON.parse(data) as EntityData[]
+  private _loadEntities(items: EntityData[]) {
     items.forEach((i) => {
       const entity = this.add(i.type)
       entity.id = i.id
