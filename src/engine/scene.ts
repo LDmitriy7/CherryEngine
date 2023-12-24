@@ -30,7 +30,7 @@ const app = new PIXI.Application({
   antialias: true,
   resolution: window.devicePixelRatio,
 })
-const root = new PIXI.Container()
+export const root = new PIXI.Container()
 
 function updateRoot() {
   app.resize()
