@@ -1,6 +1,4 @@
 import { assets, scene } from "../engine"
-import { loadScene } from "../engine/sceneLoader"
-import scene1 from "./scene.json"
 import "./temp"
 import { editor } from "./temp"
 
@@ -26,9 +24,9 @@ function main() {
   editor.load()
 }
 
-function createContact() {
-  scene.addImage(AssetIds.contact, 0.26)
-}
+// function createContact() {
+//   scene.addImage(AssetIds.contact, 0.26)
+// }
 
 scene.play(main)
 
