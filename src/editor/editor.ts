@@ -1,10 +1,10 @@
 import { root } from "../engine/scene"
 import { editor } from "../game/temp"
 import { Attrs, getAttrs, setAttrs } from "./attr"
-import { Entity, EntityClass, EntityTypes } from "./entities"
+import { PixiEntity, EntityClass, EntityTypes } from "./entities"
 import { moveArrayItem } from "./lib"
 
-export const ENTITIES: Entity[] = []
+export const ENTITIES: PixiEntity[] = []
 
 const KEY_BACKUP_ENTITIES = "__backupEntities__"
 const KEY_ENTITIES = "__entities__"
@@ -46,7 +46,7 @@ type EntityData = {
   attrs: Attrs
 }
 
-function createEntityData(entity: Entity): EntityData {
+function createEntityData(entity: PixiEntity): EntityData {
   return {
     type: entity.type,
     id: entity.id,
@@ -64,7 +64,7 @@ Object.assign(window, { serializeEntities })
 
 export class Editor {
   root = root
-  lastEntity?: Entity
+  lastEntity?: PixiEntity
 
   add<T extends EntityClass>(entityType: string | T): InstanceType<T> {
     let constructor: EntityClass
@@ -86,7 +86,7 @@ export class Editor {
     return ENTITIES.find((e) => e.name == entityName)
   }
 
-  remove(entity: Entity) {
+  remove(entity: PixiEntity) {
     let index = ENTITIES.indexOf(entity)
     if (index !== -1) ENTITIES.splice(index)
     index = root.children.indexOf(entity.base)
@@ -94,7 +94,7 @@ export class Editor {
   }
   delete = this.remove
 
-  reorder(entity: Entity, newIndex: number) {
+  reorder(entity: PixiEntity, newIndex: number) {
     let oldIndex = ENTITIES.indexOf(entity)
     if (oldIndex == -1) throw new Error(`Entity not found: ${entity.name}`)
     const indexDelta = newIndex - oldIndex

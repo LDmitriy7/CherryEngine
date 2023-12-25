@@ -1,10 +1,10 @@
 import { attr } from "../attr"
-import { Entity } from "./entity"
+import { PixiEntity } from "./entity"
 import * as PIXI from "pixi.js"
 
 export class SpatialEntity<
   T extends PIXI.Container = PIXI.Container
-> extends Entity<T> {
+> extends PixiEntity<T> {
   @attr
   get x() {
     return this.base.x
