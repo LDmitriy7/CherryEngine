@@ -1,16 +1,13 @@
 import { assets, scene } from "../engine"
 import "./temp"
 import { editor } from "./temp"
-
-enum AssetIds {
-  bg,
-  panel,
-  contact,
-}
+import "./entities"
+import { AssetIds } from "./assetIds"
 
 assets.add(AssetIds.bg, "bg.jpg")
 assets.add(AssetIds.panel, "panel.png")
 assets.add(AssetIds.contact, "contact.png")
+assets.add(AssetIds.phone, "phone.png")
 
 function main() {
   editor.restore()

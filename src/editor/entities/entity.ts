@@ -2,7 +2,7 @@ import * as PIXI from "pixi.js"
 import { uid } from "../lib"
 import { Class } from "../lib"
 
-export class Entity<T extends PIXI.DisplayObject = PIXI.DisplayObject> {
+export class Entity<T extends PIXI.Container = PIXI.Container> {
   id: string
   type: string
   name: string
@@ -11,6 +11,16 @@ export class Entity<T extends PIXI.DisplayObject = PIXI.DisplayObject> {
     this.id = uid()
     this.type = this.constructor.name
     this.name = this.type.replace(/Entity$/, "")
+  }
+
+  createChild<T extends Entity>(type: Class<T>) {
+    const entity = new type()
+    this.addChild(entity)
+    return entity
+  }
+
+  addChild(child: Entity) {
+    this.base.addChild(child.base)
   }
 }
 

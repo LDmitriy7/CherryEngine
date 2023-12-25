@@ -1,4 +1,5 @@
 import { root } from "../engine/scene"
+import { editor } from "../game/temp"
 import { Attrs, getAttrs, setAttrs } from "./attr"
 import { Entity, EntityClass, EntityTypes } from "./entities"
 import { moveArrayItem } from "./lib"
@@ -7,6 +8,13 @@ export const ENTITIES: Entity[] = []
 
 const KEY_BACKUP_ENTITIES = "__backupEntities__"
 const KEY_ENTITIES = "__entities__"
+
+function importEntities(data: string) {
+  localStorage[KEY_ENTITIES] = data
+  editor.revert()
+}
+
+Object.assign(window, { importEntities })
 
 class EntityStorage {
   save = () => this._save(KEY_ENTITIES)
@@ -58,7 +66,7 @@ export class Editor {
   root = root
   lastEntity?: Entity
 
-  add(entityType: string | EntityClass) {
+  add<T extends EntityClass>(entityType: string | T): InstanceType<T> {
     let constructor: EntityClass
     if (typeof entityType == "string") {
       constructor = EntityTypes[entityType]
@@ -67,7 +75,7 @@ export class Editor {
     const entity = new constructor()
     ENTITIES.push(entity)
     this.lastEntity = entity
-    return entity
+    return entity as InstanceType<T>
   }
 
   get entityNames() {

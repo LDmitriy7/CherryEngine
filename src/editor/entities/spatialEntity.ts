@@ -3,7 +3,7 @@ import { Entity } from "./entity"
 import * as PIXI from "pixi.js"
 
 export class SpatialEntity<
-  T extends PIXI.DisplayObject = PIXI.DisplayObject
+  T extends PIXI.Container = PIXI.Container
 > extends Entity<T> {
   @attr
   get x() {
