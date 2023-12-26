@@ -2,7 +2,12 @@ import * as PIXI from "pixi.js"
 
 const ASSET_IDS: string[] = []
 
-class Assets {
+export abstract class Assets {
+  abstract add(id: string | number, src: string): void
+  abstract load(): void
+}
+
+export class PixiAssets extends Assets {
   add(id: string | number, src: string) {
     id = id.toString()
     PIXI.Assets.add({ alias: id, src: src })
@@ -14,4 +19,11 @@ class Assets {
   }
 }
 
-export const assets = new Assets()
+export class PhaserAssets extends Assets {
+  add(id: string | number, src: string): void {
+    throw new Error("Method not implemented.")
+  }
+  load(): void {
+    throw new Error("Method not implemented.")
+  }
+}

@@ -1,7 +1,7 @@
-import { root } from "../engine/scene"
 import { editor } from "../game/temp"
 import { Attrs, getAttrs, setAttrs } from "./attr"
 import { PixiEntity, EntityClass, EntityTypes } from "./entities"
+import { ENGINE } from "./entities/_engine"
 import { moveArrayItem } from "./lib"
 
 export const ENTITIES: PixiEntity[] = []
@@ -63,7 +63,6 @@ function serializeEntities() {
 Object.assign(window, { serializeEntities })
 
 export class Editor {
-  root = root
   lastEntity?: PixiEntity
 
   add<T extends EntityClass>(entityType: string | T): InstanceType<T> {
@@ -87,21 +86,19 @@ export class Editor {
   }
 
   remove(entity: PixiEntity) {
-    let index = ENTITIES.indexOf(entity)
+    const index = ENTITIES.indexOf(entity)
     if (index !== -1) ENTITIES.splice(index)
-    index = root.children.indexOf(entity.base)
-    if (index !== -1) root.children[index].destroy()
+    ENGINE.destroy(entity)
   }
   delete = this.remove
 
   reorder(entity: PixiEntity, newIndex: number) {
-    let oldIndex = ENTITIES.indexOf(entity)
+    const oldIndex = ENTITIES.indexOf(entity)
     if (oldIndex == -1) throw new Error(`Entity not found: ${entity.name}`)
     const indexDelta = newIndex - oldIndex
     moveArrayItem(ENTITIES, oldIndex, newIndex)
-    oldIndex = this.root.children.indexOf(entity.base)
     newIndex = oldIndex + indexDelta
-    moveArrayItem(this.root.children, oldIndex, newIndex)
+    ENGINE.reorder(entity, newIndex)
   }
 
   save = () => entityStorage.save()

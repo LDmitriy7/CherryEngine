@@ -2,7 +2,7 @@ import * as PIXI from "pixi.js"
 import { uid } from "../lib"
 import { Class } from "../lib"
 
-export abstract class Entity<T = any> {
+export abstract class _Entity<T = any> {
   id: string
   type: string
   name: string
@@ -13,33 +13,33 @@ export abstract class Entity<T = any> {
     this.name = this.type.replace(/Entity$/, "")
   }
 
-  abstract addChild(child: Entity): void
+  abstract addChild(child: _Entity): void
 
-  createChild<T extends Entity>(type: Class<T>) {
+  createChild<T extends _Entity>(type: Class<T>) {
     const entity = new type()
     this.addChild(entity)
     return entity
   }
 }
 
-export class PixiEntity<
+export class Entity<
   T extends PIXI.Container = PIXI.Container
-> extends Entity<T> {
-  addChild(child: PixiEntity) {
+> extends _Entity<T> {
+  addChild(child: Entity) {
     this.base.addChild(child.base)
   }
 
-  createChild<T extends PixiEntity>(type: Class<T>): T {
+  createChild<T extends Entity>(type: Class<T>): T {
     return super.createChild(type)
   }
 }
 
-export type EntityClass = Class<PixiEntity>
+export type EntityClass = Class<Entity>
 export const EntityTypes: Record<string, EntityClass> = {}
 
 Object.assign(window, { EntityTypes })
 
-export function _entity<T extends PixiEntity>(
+export function _entity<T extends Entity>(
   constructor: Class<T>,
   context: unknown
 ) {
@@ -48,7 +48,7 @@ export function _entity<T extends PixiEntity>(
 }
 
 export function entity(oldName?: string) {
-  return function decorator<T extends PixiEntity>(
+  return function decorator<T extends Entity>(
     constructor: new () => T,
     context: unknown
   ) {

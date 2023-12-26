@@ -1,7 +1,7 @@
-import { assets } from "../engine"
+import { ENGINE } from "./entities/_engine"
 
 export enum AssetIds {
   square = "square",
 }
 
-assets.add(AssetIds.square, "square.png")
+ENGINE.assets.add(AssetIds.square, "square.png")

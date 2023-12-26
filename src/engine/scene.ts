@@ -1,5 +1,7 @@
 import * as PIXI from "pixi.js"
-import { assets } from "./assets"
+import { ENGINE } from "../editor/entities/_engine"
+
+export const root = ENGINE.root
 
 class Scene {
   addImage(assetId: string | number, scale = 1) {
@@ -20,30 +22,9 @@ class Scene {
   }
 
   async play(callback: () => void) {
-    await assets.load()
+    await ENGINE.assets.load()
     callback()
   }
 }
-
-const app = new PIXI.Application({
-  resizeTo: window,
-  antialias: true,
-  resolution: window.devicePixelRatio,
-})
-export const root = new PIXI.Container()
-
-function updateRoot() {
-  app.resize()
-  root.x = app.screen.width / 2
-  root.y = app.screen.height / 2
-  root.scale.set(app.screen.height / 720)
-}
-
-updateRoot()
-window.addEventListener("resize", updateRoot)
-
-app.stage.addChild(root)
-
-document.body.appendChild(app.view as unknown as Node)
 
 export const scene = new Scene()

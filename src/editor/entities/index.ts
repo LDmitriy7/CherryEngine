@@ -3,4 +3,9 @@ export { LabelEntity } from "./labelEntity"
 export { SpatialEntity } from "./spatialEntity"
 export { WhiteBoldLabelEntity } from "./whiteBoldLabelEntity"
 export { ContainerEntity } from "./containerEntity"
-export { PixiEntity, Entity, type EntityClass, EntityTypes } from "./entity"
+export {
+  Entity as PixiEntity,
+  _Entity as Entity,
+  type EntityClass,
+  EntityTypes,
+} from "./entity"
