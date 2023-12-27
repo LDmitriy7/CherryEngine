@@ -72,6 +72,9 @@ export const PHASER_SCENE = new Scene({})
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
   scale: { mode: Phaser.Scale.RESIZE },
+  mipmapFilter: "LINEAR_MIPMAP_LINEAR",
+  // mipmapFilter: "NEAREST",
+  // mipmapFilter: "LINEAR",
   scene: PHASER_SCENE,
 }
 

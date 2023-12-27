@@ -1,7 +1,4 @@
-import { Game, Image, PhaserApp, PixiApp } from "./cherry"
-
-const game = new Game(new PixiApp())
-// const game = new Game(new PhaserApp())
+import { game, Image } from "./cherry"
 
 game.addAsset("bg", "bg.jpg")
 game.addAsset("panel", "panel.png")
