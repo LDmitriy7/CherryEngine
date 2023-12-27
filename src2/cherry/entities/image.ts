@@ -1,7 +1,7 @@
 import { App } from "../apps"
 import { Entity } from "./entity"
 
-export class Image extends Entity {
+export class Image<AssetId extends string> extends Entity {
   constructor(protected app: App) {
     const image = app.addImage()
     super(image, app)
@@ -15,7 +15,7 @@ export class Image extends Entity {
     this.app.setScale(this.base, value)
   }
 
-  set texture(value: string) {
+  set texture(value: AssetId) {
     this.app.setTexture(this.base, value)
   }
 }

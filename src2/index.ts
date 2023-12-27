@@ -1,19 +1,21 @@
-import { Game, Image, PhaserApp, PixiApp } from "./cherry"
+import * as cherry from "./cherry"
 
-const app = new PixiApp()
-// const app = new PhaserApp()
-const game = new Game(app)
+type AssetId = "bg" | "panel"
+const Image = cherry.Image<AssetId>
 
-game.addAsset("bg", "bg.jpg")
-game.addAsset("panel", "panel.png")
-game.addAsset("panel2", "panel4.png")
+// const app = new cherry.PixiApp()
+const app = new cherry.PhaserApp()
+const game = new cherry.Game<AssetId>(app)
+
+game.assets.add("bg", "bg.jpg")
+game.assets.add("panel", "panel.png")
 
 game.play(() => {
   const bg = game.add(Image)
   bg.scale = 0.7
   bg.texture = "bg"
   const panel = game.add(Image)
-  panel.texture = "panel2"
-  // panel.scale = 0.35 / 6
+  panel.texture = "panel"
+  panel.scale = 0.5
   panel.tint = "000000"
 })
