@@ -1,5 +1,5 @@
 import { App } from "./apps/app"
-import { Entity, EntityClass } from "./entity"
+import { Entity, EntityClass } from "./entities/entity"
 
 export class Game {
   constructor(private app: App) {}
@@ -9,7 +9,7 @@ export class Game {
   add<T extends Entity>(entityType: EntityClass<T>) {
     return new entityType(this.app)
   }
-  start(load: () => void) {
-    this.app.start(load)
+  play(init: () => void) {
+    this.app.start(init)
   }
 }

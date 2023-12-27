@@ -1,13 +1,14 @@
 import { Game, Image, PhaserApp, PixiApp } from "./cherry"
 
-const game = new Game(new PixiApp())
-// const game = new Game(new PhaserApp())
+const app = new PixiApp()
+// const app = new PhaserApp()
+const game = new Game(app)
 
 game.addAsset("bg", "bg.jpg")
 game.addAsset("panel", "panel.png")
 game.addAsset("panel2", "panel4.png")
 
-game.start(() => {
+game.play(() => {
   const bg = game.add(Image)
   bg.scale = 0.7
   bg.texture = "bg"

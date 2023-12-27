@@ -1,4 +1,5 @@
+import { App } from "./app"
 import { PhaserApp } from "./phaserApp"
 import { PixiApp } from "./pixiApp"
 
-export { PhaserApp, PixiApp }
+export { PhaserApp, PixiApp, App }
