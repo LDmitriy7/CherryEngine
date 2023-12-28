@@ -1,4 +1,5 @@
 import { Assets, Container, Sprite } from "pixi.js"
+import * as PIXI from "pixi.js"
 import { PixiEngine } from "../../../src/editor/entities/_engine"
 import { App } from "./app"
 import { expose } from "../lib"
@@ -10,6 +11,24 @@ export function createPixiApp() {
 }
 
 export class PixiApp extends App {
+  setText(base: PIXI.Text, value: string) {
+    base.text = value
+  }
+  setFontWeight(base: PIXI.Text, value: string) {
+    base.style.fontWeight = value as PIXI.TextStyleFontWeight // TODO:
+  }
+  setX(base: PIXI.Container, value: number) {
+    base.x = value
+  }
+  setY(base: PIXI.Container, value: number) {
+    base.y = -value
+  }
+  setLabelColor(base: PIXI.Text, value: string): void {
+    base.style.fill = value
+  }
+  addLabel() {
+    return this.app.addLabel("text")
+  }
   addAsset(id: string, src: string): void {
     this.app.assets.add(id, src)
   }
