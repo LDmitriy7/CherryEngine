@@ -3,6 +3,7 @@ import { Game } from "../game"
 import { PixiAssets } from "./assets"
 import {
   PixiCircle,
+  PixiCircleWithBorder,
   PixiContainer,
   PixiEntity,
   PixiImage,
@@ -39,6 +40,10 @@ export class PixiGame<AssetId extends string>
   extends _PixiGame<AssetId>
   implements Game<AssetId>
 {
+  addCircleWithBorder() {
+    return this.add(PixiCircleWithBorder)
+  }
+
   addImage() {
     const entity = new PixiImage<AssetId>()
     return this.addEntity(entity)

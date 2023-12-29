@@ -18,4 +18,8 @@ export class PixiCircle extends PixiFigure implements Circle {
     this._radius = value
     this.update()
   }
+
+  get radius() {
+    return this._radius
+  }
 }

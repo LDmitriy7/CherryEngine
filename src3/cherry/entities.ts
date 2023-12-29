@@ -5,6 +5,11 @@ export interface Entity {
   set parent(value: Entity)
   get name()
   set name(value: string | null)
+  set scale(value: number)
+  get scale()
+  onPointerEnter(callback: () => any): void
+  onPointerLeave(callback: () => any): void
+  doScaleOnPointerEnter(multiplier?: number): void
 }
 
 export type Container = Entity
@@ -27,6 +32,13 @@ export interface Figure extends Entity {
 
 export interface Circle extends Figure {
   set radius(value: number)
+  get radius()
+}
+
+export interface CircleWithBorder extends Circle {
+  set borderRadius(value: number)
+  get borderRadius()
+  innerCircle: Circle
 }
 
 export interface RoundedRect extends Figure {

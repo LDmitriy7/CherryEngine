@@ -4,7 +4,7 @@ import * as PIXI from "pixi.js"
 
 export class PixiLabel extends PixiEntity<PIXI.Text> implements Label {
   constructor() {
-    const base = new PIXI.Text()
+    const base = new PIXI.Text("text")
     super(base)
     base.anchor.set(0.5)
     this.name = "label"

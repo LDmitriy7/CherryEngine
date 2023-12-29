@@ -1,5 +1,12 @@
 import { Assets } from "./assets"
-import { Circle, Container, Image, Label, RoundedRect } from "./entities"
+import {
+  Circle,
+  CircleWithBorder,
+  Container,
+  Image,
+  Label,
+  RoundedRect,
+} from "./entities"
 
 export interface Game<AssetId extends string> {
   assets: Assets<AssetId>
@@ -7,6 +14,7 @@ export interface Game<AssetId extends string> {
   addImage(): Image<AssetId>
   addLabel(): Label
   addCircle(): Circle
+  addCircleWithBorder(): CircleWithBorder
   addRoundedRect(): RoundedRect
   play(init: () => void): Promise<void>
 }

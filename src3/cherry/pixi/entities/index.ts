@@ -1,4 +1,5 @@
 import { PixiCircle } from "./circle"
+import { PixiCircleWithBorder } from "./circlewithBorder"
 import { PixiContainer } from "./container"
 import { PixiEntity } from "./entity"
 import { PixiImage } from "./image"
@@ -11,4 +12,5 @@ export {
   PixiCircle,
   PixiContainer,
   PixiEntity,
+  PixiCircleWithBorder
 }
