@@ -18,7 +18,7 @@ interface Game<AssetId extends string> {
   play(init: () => void): Promise<void>
 }
 
-export class PixiGame<AssetId extends string> implements Game<AssetId> {
+export class _PixiGame<AssetId extends string> {
   app: PixiApp
   assets: PixiAssets<AssetId>
 
@@ -27,39 +27,46 @@ export class PixiGame<AssetId extends string> implements Game<AssetId> {
     this.app = new PixiApp()
   }
 
-  private add(entity: PixiEntity) {
+  protected addToScene(entity: PixiEntity) {
     this.app.root.addChild(entity.base)
   }
 
-  addImage() {
-    const entity = new PixiImage<AssetId>()
-    this.add(entity)
+  protected addEntity<T extends PixiEntity>(entity: T) {
+    if (!entity.name) entity.name = entity.constructor.name
+    this.addToScene(entity)
     return entity
   }
 
+  protected add<T extends PixiEntity>(entityType: new () => T) {
+    const entity = new entityType()
+    return this.addEntity(entity)
+  }
+}
+
+export class PixiGame<AssetId extends string>
+  extends _PixiGame<AssetId>
+  implements Game<AssetId>
+{
+  addImage() {
+    const entity = new PixiImage<AssetId>()
+    return this.addEntity(entity)
+  }
+
   addLabel() {
-    const entity = new PixiLabel()
-    this.add(entity)
-    return entity
+    return this.add(PixiLabel)
   }
   addTextBlock = this.addLabel
 
   addRoundedRect() {
-    const entity = new PixiRoundedRect()
-    this.add(entity)
-    return entity
+    return this.add(PixiRoundedRect)
   }
 
   addCircle() {
-    const entity = new PixiCircle()
-    this.add(entity)
-    return entity
+    return this.add(PixiCircle)
   }
 
   addContainer() {
-    const entity = new PixiContainer()
-    this.add(entity)
-    return entity
+    return this.add(PixiContainer)
   }
 
   async play(init: () => void) {

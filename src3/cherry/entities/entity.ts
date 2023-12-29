@@ -11,7 +11,11 @@ export class PixiEntity<Base extends PIXI.Container = PIXI.Container>
 {
   constructor(public base: Base) {}
 
-  set name(value: string) {
+  get name() {
+    return this.base.name
+  }
+
+  set name(value: string | null) {
     this.base.name = value
   }
 
