@@ -10,6 +10,7 @@ export class PixiCircleWithBorder
 
   constructor() {
     super()
+    this.name = "circleWithBorder"
     this.innerCircle = new PixiCircle()
     this.innerCircle.parent = this
     this.innerCircle.color = "grey"

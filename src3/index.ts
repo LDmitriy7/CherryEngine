@@ -4,6 +4,7 @@ import { game } from "./loader"
 function addAssets() {
   const { assets } = game
   assets.add("bg", "bg.jpg")
+  assets.add("phone", "phone.png")
 }
 
 function addBg() {
@@ -54,6 +55,11 @@ function addContactCircle() {
   circle.innerCircle.color = "#59f487"
   circle.x = 140
   circle.doScaleOnPointerEnter()
+  const phone = game.addImage()
+  phone.texture = "phone"
+  phone.parent = circle
+  phone.scale = 0.15
+  phone.y = -1
   return circle
 }
 
