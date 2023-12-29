@@ -1,10 +1,5 @@
 import * as PIXI from "pixi.js"
-
-export interface Entity {
-  set x(value: number)
-  set y(value: number)
-  set parent(value: Entity)
-}
+import { Entity } from "../../entities"
 
 export class PixiEntity<Base extends PIXI.Container = PIXI.Container>
   implements Entity

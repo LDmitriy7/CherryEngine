@@ -1,10 +1,5 @@
-import { Figure, PixiFigure } from "./figure"
-
-export interface RoundedRect extends Figure {
-  set width(value: number)
-  set height(value: number)
-  set radius(value: number)
-}
+import { RoundedRect } from "../../entities"
+import { PixiFigure } from "./figure"
 
 export class PixiRoundedRect extends PixiFigure implements RoundedRect {
   private _width = 100

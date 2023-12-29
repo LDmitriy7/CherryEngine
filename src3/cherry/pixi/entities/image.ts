@@ -1,15 +1,7 @@
-import { Entity, PixiEntity } from "./entity"
+import { DefaultAssetIds } from "../../assets"
+import { Image } from "../../entities"
+import { PixiEntity } from "./entity"
 import * as PIXI from "pixi.js"
-
-export interface Image<AssetId extends string> extends Entity {
-  set tint(value: string)
-  set scale(value: number)
-  set texture(value: AssetId)
-}
-
-export enum DefaultAssetIds {
-  square = "_square",
-}
 
 export function getTexture(id: string) {
   return PIXI.Assets.get(id) as PIXI.Texture

@@ -1,5 +1,5 @@
 import * as PIXI from "pixi.js"
-import { expose } from "./lib"
+import { expose } from "../lib"
 
 export class PixiApp {
   root: PIXI.Container

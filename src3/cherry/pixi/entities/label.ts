@@ -1,11 +1,6 @@
-import { Entity, PixiEntity } from "./entity"
+import { Label } from "../../entities"
+import { PixiEntity } from "./entity"
 import * as PIXI from "pixi.js"
-
-export interface Label extends Entity {
-  set color(value: string)
-  set text(value: string)
-  set weight(value: string)
-}
 
 export class PixiLabel extends PixiEntity<PIXI.Text> implements Label {
   constructor() {

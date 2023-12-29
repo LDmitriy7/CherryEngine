@@ -1,9 +1,6 @@
-import { Entity, PixiEntity } from "./entity"
+import { Figure } from "../../entities"
+import { PixiEntity } from "./entity"
 import * as PIXI from "pixi.js"
-
-export interface Figure extends Entity {
-  set color(value: string)
-}
 
 export abstract class PixiFigure
   extends PixiEntity<PIXI.Graphics>

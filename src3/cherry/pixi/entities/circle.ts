@@ -1,8 +1,5 @@
-import { Figure, PixiFigure } from "./figure"
-
-export interface Circle extends Figure {
-  set radius(value: number)
-}
+import { Circle } from "../../entities"
+import { PixiFigure } from "./figure"
 
 export class PixiCircle extends PixiFigure implements Circle {
   private _radius = 100
