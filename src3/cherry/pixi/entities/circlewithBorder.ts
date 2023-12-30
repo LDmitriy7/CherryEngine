@@ -19,7 +19,6 @@ export class PixiCircleWithBorder
 
   private updateInnerCircle() {
     this.innerCircle.radius = this.radius - this.borderRadius
-    console.log(this.radius)
   }
 
   set radius(value: number) {

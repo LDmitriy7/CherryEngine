@@ -1,4 +1,4 @@
-import { PixiApp } from "./pixiApp"
+import { PixiApp } from "./app"
 import { Game } from "../game"
 import { PixiAssets } from "./assets"
 import {
