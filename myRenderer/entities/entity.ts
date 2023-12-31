@@ -1,10 +1,13 @@
-export type Context = CanvasRenderingContext2D
+import { Context } from "../lib"
 
 export class Entity {
-  x = 0
-  y = 0
   private _children: Entity[] = []
   private _parent?: Entity
+
+  x = 0
+  y = 0
+  name: string | null = null
+  scale = 1
 
   get children() {
     return this._children
@@ -28,6 +31,11 @@ export class Entity {
   get globalY() {
     if (!this.parent) return this.y
     return this.parent.globalY + this.y
+  }
+
+  get globalScale() {
+    if (!this.parent) return this.scale
+    return this.parent.globalScale * this.scale
   }
 
   render(ctx: Context) {
