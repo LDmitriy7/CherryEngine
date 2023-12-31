@@ -1,12 +1,11 @@
 import { Context } from "../lib"
 import { Entity } from "./entity"
 
-export class Square extends Entity {
+export class Circle extends Entity {
   size = 100
   protected renderSelf(ctx: Context) {
     const size = this.size * this.globalScale
-    const halfSize = size / 2
-    ctx.rect(this.globalX - halfSize, -this.globalY - halfSize, size, size)
+    ctx.arc(this.globalX, -this.globalY, size / 2, 0, Math.PI * 2)
     ctx.fill()
   }
 }
