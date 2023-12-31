@@ -12,22 +12,25 @@ export class PixiApp {
       resolution: window.devicePixelRatio,
     })
     expose({ __PIXI_APP__: app, PIXI })
-    const root = new PIXI.Container()
-    root.name = "root"
     this.base = app
-    this.root = root
+    this.root = app.stage
+    this.root.name = "root"
+    const canvas = app.view as HTMLCanvasElement
+    document.body.appendChild(canvas)
+    this.doUpdateRoot()
+  }
+
+  private doUpdateRoot() {
     this.updateRoot()
     window.addEventListener("resize", this.updateRoot)
-    app.stage.addChild(root)
-    document.body.appendChild(app.view as unknown as Node)
   }
 
   private updateRoot = () => {
-    const app = this.base
-    const root = this.root
-    app.resize()
-    root.x = app.screen.width / 2
-    root.y = app.screen.height / 2
-    root.scale.set(app.screen.height / 720)
+    const { screen } = this.base
+    const { root } = this
+    // app.resize()
+    root.x = screen.width / 2
+    root.y = screen.height / 2
+    root.scale.set(screen.height / 720)
   }
 }
