@@ -1,5 +1,5 @@
 import { PixiApp } from "./app"
-import { Game } from "../game"
+import { Game, GameSize } from "../game"
 import { PixiAssets } from "./assets"
 import {
   PixiCircle,
@@ -40,6 +40,14 @@ export class PixiGame<AssetId extends string>
   extends _PixiGame<AssetId>
   implements Game<AssetId>
 {
+  onResize(callback: (size: GameSize) => void): void {
+    const { screen } = this.app.base
+    this.app.onResize(() => {
+      const { width, height } = screen
+      callback({ width, height })
+    })
+  }
+
   addCircleWithBorder() {
     return this.add(PixiCircleWithBorder)
   }

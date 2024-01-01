@@ -83,4 +83,5 @@ function init() {
 }
 
 addAssets()
+game.onResize((size) => console.log(size))
 game.play(init)

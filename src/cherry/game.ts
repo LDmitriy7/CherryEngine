@@ -8,6 +8,8 @@ import {
   RoundedRect,
 } from "./entities"
 
+export type GameSize = { width: number; height: number }
+
 export interface Game<AssetId extends string> {
   assets: Assets<AssetId>
   addContainer(): Container
@@ -17,4 +19,5 @@ export interface Game<AssetId extends string> {
   addCircleWithBorder(): CircleWithBorder
   addRoundedRect(): RoundedRect
   play(init: () => void): Promise<void>
+  onResize(callback: (size: GameSize) => void): void
 }

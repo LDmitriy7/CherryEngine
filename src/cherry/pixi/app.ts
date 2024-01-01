@@ -28,9 +28,13 @@ export class PixiApp {
   private updateRoot = () => {
     const { screen } = this.base
     const { root } = this
-    // app.resize()
+    this.base.resize()
     root.x = screen.width / 2
     root.y = screen.height / 2
     root.scale.set(screen.height / 720)
+  }
+
+  onResize(callback: () => void) {
+    this.base.renderer.on("resize", callback)
   }
 }
