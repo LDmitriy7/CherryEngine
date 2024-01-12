@@ -28,9 +28,17 @@ export class PixiRoundedRect extends PixiFigure implements RoundedRect {
     this.update()
   }
 
+  get width() {
+    return this._width
+  }
+
   set height(value: number) {
     this._height = value
     this.update()
+  }
+
+  get height() {
+    return this._height
   }
 
   set radius(value: number) {

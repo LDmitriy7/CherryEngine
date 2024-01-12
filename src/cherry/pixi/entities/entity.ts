@@ -39,8 +39,16 @@ export class PixiEntity<Base extends PIXI.Container = PIXI.Container>
     this.base.x = value
   }
 
+  get x() {
+    return this.base.x
+  }
+
   set y(value: number) {
     this.base.y = -value
+  }
+
+  get y() {
+    return this.base.y
   }
 
   onPointerEnter(callback: () => any) {

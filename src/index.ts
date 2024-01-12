@@ -33,18 +33,35 @@ function addLabel() {
 }
 
 function addContact(num: number) {
+  const maxWidth = 370
   const contact = game.addRoundedRect()
   contact.name = "contact"
-  contact.width = 370
+  contact.width = maxWidth
   contact.height = 80
   contact.radius = 50
   contact.color = "#428fd9"
   const circle = addContactCircle()
+  const maxCircleX = circle.x
   circle.parent = contact
   const label = game.addLabel()
   label.parent = contact
   label.color = "white"
   label.text = `Котик ${num}`
+
+  contact.base.pivot.x = 0
+
+  function resize(size: { width: number; height: number }) {
+    const ratio = size.width / size.height
+    const _width = maxWidth * ratio * 1.8
+    contact.width = Math.min(maxWidth, _width)
+    const _circleX = contact.width / 2 - 45
+    // circle.x = Math.min(maxCircleX, (maxCircleX * _width) / maxWidth)
+    circle.x =_circleX
+  }
+
+  resize(game.app.base.screen)
+  game.onResize(resize)
+
   return contact
 }
 
@@ -83,5 +100,4 @@ function init() {
 }
 
 addAssets()
-game.onResize((size) => console.log(size))
 game.play(init)

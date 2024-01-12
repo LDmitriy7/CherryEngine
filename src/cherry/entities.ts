@@ -1,6 +1,8 @@
 export interface Entity {
   set x(value: number)
+  get x()
   set y(value: number)
+  get y()
   get parent(): Entity
   set parent(value: Entity)
   get name()
@@ -43,6 +45,8 @@ export interface CircleWithBorder extends Circle {
 
 export interface RoundedRect extends Figure {
   set width(value: number)
+  get width()
   set height(value: number)
+  get height()
   set radius(value: number)
 }
