@@ -1,4 +1,4 @@
-import { BackgroundSprite, RoundedRect } from "../pixi-tools"
+import { BackgroundSprite, Label, RoundedRect } from "../pixi-tools"
 
 export function createPhone() {
   const phone = new RoundedRect()
@@ -12,4 +12,13 @@ export function createPhone() {
 export function createBg() {
   const bg = new BackgroundSprite("bg.jpg", 2500, 1677)
   return bg
+}
+
+export function createLabel() {
+  const label = new Label("МОИ КОНТАКТЫ")
+  label.style.fill = "white"
+  label.style.fontWeight = "bolder"
+  label.rectTransform.preset = "top"
+  label.rectTransform.y = 25
+  return label
 }
