@@ -4,6 +4,8 @@ import { Entity } from "../../entities"
 export class PixiEntity<Base extends PIXI.Container = PIXI.Container>
   implements Entity
 {
+  children: PixiEntity[] = []
+
   private _scale = 1
 
   constructor(public base: Base) {}
@@ -18,6 +20,7 @@ export class PixiEntity<Base extends PIXI.Container = PIXI.Container>
 
   set parent(value: PixiEntity) {
     value.base.addChild(this.base)
+    value.children.push(this)
   }
 
   // TODO: off
@@ -37,6 +40,8 @@ export class PixiEntity<Base extends PIXI.Container = PIXI.Container>
 
   set x(value: number) {
     this.base.x = value
+    // this.base.x = this.base.parent.x / 2 + value
+    this.updateChildrenPosition()
   }
 
   get x() {
@@ -45,11 +50,19 @@ export class PixiEntity<Base extends PIXI.Container = PIXI.Container>
 
   set y(value: number) {
     this.base.y = -value
+    this.updateChildrenPosition()
   }
 
   get y() {
     return this.base.y
   }
+
+  protected updateChildrenPosition() {
+    this.children.forEach((c) => c.updatePosition())
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  protected updatePosition() {}
 
   onPointerEnter(callback: () => any) {
     this.on("pointerenter", callback)

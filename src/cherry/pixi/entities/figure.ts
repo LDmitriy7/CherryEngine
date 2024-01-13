@@ -14,6 +14,19 @@ export abstract class PixiFigure
     this.update()
   }
 
+  get width() {
+    return this.base.width
+  }
+
+  get height() {
+    return this.base.height
+  }
+
+  protected updatePosition() {
+    console.log("updatePosition")
+    // this.x = 100
+  }
+
   protected abstract draw(): void
 
   protected update() {

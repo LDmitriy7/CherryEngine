@@ -22,6 +22,7 @@ function addPanel() {
   rect.height = 700
   rect.radius = 30
   rect.name = "panel"
+  return rect
 }
 
 function addLabel() {
@@ -48,15 +49,13 @@ function addContact(num: number) {
   label.color = "white"
   label.text = `Котик ${num}`
 
-  contact.base.pivot.x = 0
-
   function resize(size: { width: number; height: number }) {
     const ratio = size.width / size.height
     const _width = maxWidth * ratio * 1.8
     contact.width = Math.min(maxWidth, _width)
     const _circleX = contact.width / 2 - 45
     // circle.x = Math.min(maxCircleX, (maxCircleX * _width) / maxWidth)
-    circle.x =_circleX
+    circle.x = _circleX
   }
 
   resize(game.app.base.screen)
@@ -94,9 +93,10 @@ function addContacts(count = 6) {
 
 function init() {
   addBg()
-  addPanel()
+  const panel = addPanel()
   addLabel()
   addContacts()
+  // panel.x = 30
 }
 
 addAssets()
