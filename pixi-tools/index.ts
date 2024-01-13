@@ -1,4 +1,5 @@
 import * as PIXI from "pixi.js"
+import { RoundedRect } from "./roundedRect"
 
 export function expose(data: object) {
   Object.assign(window, data)
@@ -30,3 +31,5 @@ function doUpdateRoot(app: PIXI.Application) {
   updateRoot(app)
   window.addEventListener("resize", () => updateRoot(app))
 }
+
+export { RoundedRect }

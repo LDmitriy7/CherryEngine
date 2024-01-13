@@ -1,28 +1,11 @@
-import { createApp } from "../pixi-tools"
-import * as PIXI from "pixi.js"
+import { createApp, RoundedRect } from "../pixi-tools"
 
 const app = createApp()
 
-const graphics = new PIXI.Graphics()
-setFigure(graphics, drawRoundedRect)
-app.stage.addChild(graphics)
+const rect = new RoundedRect()
+rect.color = "green"
+rect.width = 200
+rect.height = 50
+rect.radius = 50
 
-function drawRoundedRect(
-  graphics: PIXI.Graphics,
-  width = 100,
-  height = 100,
-  radius = 10
-) {
-  graphics.drawRoundedRect(-width / 2, -height / 2, width, height, radius)
-}
-
-function setFigure(
-  graphics: PIXI.Graphics,
-  draw: (graphics: PIXI.Graphics) => void,
-  color = "white"
-) {
-  graphics.clear()
-  graphics.beginFill(color)
-  draw(graphics)
-  graphics.endFill()
-}
+app.stage.addChild(rect)
