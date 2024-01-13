@@ -1,7 +1,6 @@
 import { createApp, RectTransform, RoundedRect } from "../pixi-tools"
 
 const app = createApp()
-
 const rect = new RoundedRect()
 app.stage.addChild(rect)
 app.ticker.add(() => RectTransform.update())
@@ -14,8 +13,7 @@ const rect2 = new RoundedRect()
 rect.addChild(rect2)
 
 function test() {
-  const tform = rect2.rectTransform
-  tform.preset = "top-right"
+  rect2.rectTransform.preset = "top-right"
   rect.width = 500
 }
 

@@ -60,6 +60,7 @@ function setRectTransform(
   anchorY = 0.5
 ) {
   const parent = container.parent
+  if (!parent) return
   container.x = parent.width * (anchorX - 0.5)
   container.y = parent.height * (anchorY - 0.5)
 }
