@@ -6,6 +6,7 @@ import {
   getRectTransformAnchor,
   RectTransform,
 } from "./rectTransform"
+import { Sprite } from "./sprite"
 
 export function createApp() {
   const app = new PIXI.Application({
@@ -33,10 +34,13 @@ function doUpdateRoot(app: PIXI.Application) {
   updateRoot(app)
   window.addEventListener("resize", () => updateRoot(app))
 }
+
 export {
   RoundedRect,
   setRectTransformPreset,
   getRectTransformAnchor,
   RectTransform,
+  Sprite,
 }
+
 export type { Point }

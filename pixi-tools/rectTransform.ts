@@ -15,6 +15,24 @@ export class RectTransform {
 
   private _anchorX = 0.5
   private _anchorY = 0.5
+  private _x = 0
+  private _y = 0
+
+  public get x() {
+    return this._x
+  }
+  public set x(value) {
+    this._x = value
+    this.update()
+  }
+
+  public get y() {
+    return this._y
+  }
+  public set y(value) {
+    this._y = value
+    this.update()
+  }
 
   constructor(private container: PIXI.Container) {
     RectTransform.instances.push(this)
@@ -38,6 +56,8 @@ export class RectTransform {
 
   update() {
     setRectTransform(this.container, this.anchorX, this.anchorY)
+    this.container.x += this.x
+    this.container.y += this.y
   }
 
   setPreset(preset: RectTransformPreset) {
