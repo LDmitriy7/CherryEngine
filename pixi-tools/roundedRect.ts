@@ -1,11 +1,8 @@
-import { drawRoundedRect, setFigure } from "./graphics"
-import * as PIXI from "pixi.js"
+import { Graphics, drawRoundedRect, setFigure } from "./graphics"
 
-export class RoundedRect extends PIXI.Graphics {
-  _color = "white"
-  _width = 100
-  _height = 100
-  _radius = 10
+export class RoundedRect extends Graphics {
+  private _color = "white"
+  private _radius = 10
 
   constructor() {
     super()

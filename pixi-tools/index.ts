@@ -1,9 +1,11 @@
 import * as PIXI from "pixi.js"
 import { RoundedRect } from "./roundedRect"
-
-export function expose(data: object) {
-  Object.assign(window, data)
-}
+import { expose, Point } from "./lib"
+import {
+  setRectTransformPreset,
+  getRectTransformAnchor,
+  RectTransform,
+} from "./rectTransform"
 
 export function createApp() {
   const app = new PIXI.Application({
@@ -31,5 +33,10 @@ function doUpdateRoot(app: PIXI.Application) {
   updateRoot(app)
   window.addEventListener("resize", () => updateRoot(app))
 }
-
-export { RoundedRect }
+export {
+  RoundedRect,
+  setRectTransformPreset,
+  getRectTransformAnchor,
+  RectTransform,
+}
+export type { Point }
