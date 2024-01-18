@@ -10,7 +10,9 @@ export function createPhone() {
 }
 
 export function createBg() {
-  const bg = new BackgroundSprite("bg.jpg", 2500, 1677)
+  // const bg = new BackgroundSprite("bg.jpg", 2500, 1677)
+  // const bg = new BackgroundSprite("bg.png", 768, 512)
+  const bg = new BackgroundSprite("bg2.png", 1260, 844)
   return bg
 }
 

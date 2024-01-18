@@ -5,6 +5,14 @@ export class Root extends Entity {
     super()
   }
 
+  get width() {
+    return this.canvas.width
+  }
+
+  get height() {
+    return this.canvas.height
+  }
+
   get globalX() {
     return this.canvas.width / 2
   }

@@ -1,7 +1,7 @@
 import { Root } from "./entities"
 import { Context } from "./lib"
 
-function loop(callback: (deltaTime: number) => void) {
+export function loop(callback: (deltaTime: number) => void) {
   let lastTime = 0
   function _loop(time: number) {
     requestAnimationFrame(_loop)
@@ -13,5 +13,8 @@ function loop(callback: (deltaTime: number) => void) {
 }
 
 export function startRenderLoop(ctx: Context, root: Root) {
-  loop(() => root.render(ctx))
+  loop(() => {
+    ctx.clearRect(0, 0, root.width, root.height)
+    root.render(ctx)
+  })
 }

@@ -6,6 +6,7 @@ export function createApp() {
     resizeTo: window,
     antialias: true,
     resolution: window.devicePixelRatio,
+    powerPreference: "high-performance",
   })
   expose({ __PIXI_APP__: app, PIXI })
   const canvas = app.view as HTMLCanvasElement
