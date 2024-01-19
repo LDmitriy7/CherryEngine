@@ -6,23 +6,65 @@ import {
   onMouseMove,
   run,
 } from "./renderer"
-import { Circle, Entity, Rect } from "./renderer/entity"
+import { CanvasContext } from "./renderer/canvasContext"
+import { Circle, Entity, Label, Rect } from "./renderer/entity"
+
+class Brick extends Rect {
+  status: 0 | 1 = 1
+  width = 75
+  height = 20
+}
+
+class Bricks extends Entity {
+  bricks: Brick[][] = []
+
+  init() {
+    const { bricks } = this
+    for (let c = 0; c < brickColumnCount; c++) {
+      bricks[c] = []
+      for (let r = 0; r < brickRowCount; r++) {
+        const brick = new Brick(this.ctx)
+        brick.color = "#0095DD"
+        bricks[c][r] = brick
+      }
+    }
+  }
+}
+
+class ScoreLabel extends Label {
+  color = "#0095DD"
+
+  draw() {
+    this.text = "Score: " + score
+    super.draw()
+  }
+}
+
+class LivesLabel extends Label {
+  color = "#0095DD"
+
+  draw() {
+    this.text = "Lives: " + lives
+    super.draw()
+  }
+}
 
 const { canvas, ctx } = createApp()
+const CTX = new CanvasContext(ctx)
 canvas.height = 320
 canvas.width = 480
 
 let dx = 2
 let dy = -2
 
-const ball = new Circle(ctx)
+const ball = new Circle(CTX)
 ball.radius = 10
 ball.color = "#0095DD"
 ball.x = canvas.width / 2
 ball.y = canvas.height - 30
 
 // moving platform
-const paddle = new Rect(ctx)
+const paddle = new Rect(CTX)
 paddle.x = (canvas.width - paddle.width) / 2
 paddle.y = canvas.height - paddle.height
 paddle.width = 75
@@ -40,29 +82,7 @@ const brickOffsetLeft = 30
 let score = 0
 let lives = 3
 
-class Brick extends Rect {
-  status: 0 | 1 = 1
-  width = 75
-  height = 20
-  color = "#0095DD"
-}
-
-class Bricks extends Entity {
-  bricks: Brick[][] = []
-
-  init() {
-    const { bricks } = this
-    for (let c = 0; c < brickColumnCount; c++) {
-      bricks[c] = []
-      for (let r = 0; r < brickRowCount; r++) {
-        const brick = new Brick(ctx)
-        bricks[c][r] = brick
-      }
-    }
-  }
-}
-
-const _bricks = new Bricks(ctx)
+const _bricks = new Bricks(CTX)
 _bricks.init()
 const bricks = _bricks.bricks
 
@@ -120,25 +140,21 @@ function drawBricks() {
   }
 }
 
-function drawScore() {
-  ctx.font = "16px Arial"
-  ctx.fillStyle = "#0095DD"
-  ctx.fillText("Score: " + score, 8, 20)
-}
+const scoreLabel = new ScoreLabel(CTX)
+scoreLabel.x = 8
+scoreLabel.y = 20
 
-function drawLives() {
-  ctx.font = "16px Arial"
-  ctx.fillStyle = "#0095DD"
-  ctx.fillText("Lives: " + lives, canvas.width - 65, 20)
-}
+const livesLabel = new LivesLabel(CTX)
+livesLabel.x = canvas.width - 65
+livesLabel.y = 20
 
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height)
   drawBricks()
   ball.draw()
   paddle.draw()
-  drawScore()
-  drawLives()
+  scoreLabel.draw()
+  livesLabel.draw()
   handleCollisions()
 
   if (ball.x + dx > canvas.width - ball.radius || ball.x + dx < ball.radius) {

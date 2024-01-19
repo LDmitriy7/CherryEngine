@@ -7,38 +7,25 @@ export class Entity {
   constructor(protected ctx: Context) {}
 
   // init?(): void
-
-  draw() {
-    this.ctx.beginPath()
-    if (this.drawSelf) this.drawSelf()
-    this.ctx.closePath()
-  }
-
-  drawSelf?(): void
+  // draw() {}
 }
 
 abstract class Figure extends Entity {
   color = "white"
 
-  protected fill() {
-    const { ctx } = this
-    ctx.fillStyle = this.color
-    ctx.fill()
-  }
-
-  drawSelf() {
+  draw() {
+    this.ctx.color = this.color
     this.drawFigure()
-    this.fill()
   }
 
-  abstract drawFigure(): void
+  protected abstract drawFigure(): void
 }
 
 export class Circle extends Figure {
   radius = 10
 
   drawFigure() {
-    this.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2)
+    this.ctx.drawCircle(this.x, this.y, this.radius)
   }
 }
 
@@ -47,6 +34,16 @@ export class Rect extends Figure {
   height = 10
 
   drawFigure() {
-    this.ctx.rect(this.x, this.y, this.width, this.height)
+    this.ctx.drawRect(this.x, this.y, this.width, this.height)
+  }
+}
+
+export class Label extends Figure {
+  font = "16px Arial"
+  text = "Text"
+
+  protected drawFigure(): void {
+    this.ctx.font = this.font
+    this.ctx.drawLabel(this.x, this.y, this.text)
   }
 }
