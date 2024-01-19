@@ -5,3 +5,9 @@ export interface Context {
   drawCircle(x: number, y: number, radius: number): void
   drawLabel(x: number, y: number, text: string): void
 }
+
+export function copyProps<Src>(src: Src, dest: any, props: (keyof Src)[]) {
+  for (const srcKey of props) {
+    dest[srcKey] = src[srcKey]
+  }
+}

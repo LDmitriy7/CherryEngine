@@ -75,16 +75,12 @@ function draw() {
       dy = -dy
     } else {
       stats.lives--
-      if (!stats.lives) {
-        alert("GAME OVER")
-        document.location.reload()
-      } else {
-        ball.x = canvas.width / 2
-        ball.y = canvas.height - 30
-        dx = 3
-        dy = -3
-        paddle.x = (canvas.width - paddle.width) / 2
-      }
+      if (!stats.lives) gameover()
+      ball.x = canvas.width / 2
+      ball.y = canvas.height - 30
+      dx = 3
+      dy = -3
+      paddle.x = (canvas.width - paddle.width) / 2
     }
   }
 
@@ -96,6 +92,11 @@ function draw() {
 
   ball.x += dx
   ball.y += dy
+}
+
+function gameover() {
+  alert("GAME OVER")
+  document.location.reload()
 }
 
 run(draw)
