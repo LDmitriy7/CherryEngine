@@ -11,3 +11,5 @@ export function copyProps<Src>(src: Src, dest: any, props: (keyof Src)[]) {
     dest[srcKey] = src[srcKey]
   }
 }
+
+export type Position = { x: number; y: number }

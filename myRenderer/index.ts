@@ -1,32 +1,19 @@
 import { brickColumnCount, brickRowCount, canvas, ctx, stats } from "./lib"
-import {
-  getMousePosition,
-  onKeyDown,
-  onKeyUp,
-  onMouseMove,
-  run,
-} from "./renderer"
+import { run } from "./renderer"
 import { paddle, bricks, ball, scoreLabel, livesLabel } from "./entities"
+import { Input } from "./renderer/input"
 
 let dx = 2
 let dy = -2
 
-let rightPressed = false
-let leftPressed = false
+const input = new Input(canvas)
 const brickCount = brickRowCount * brickColumnCount
 
-onKeyDown(() => (leftPressed = true), "left")
-onKeyUp(() => (leftPressed = false), "left")
-onKeyDown(() => (rightPressed = true), "right")
-onKeyUp(() => (rightPressed = false), "right")
-onMouseMove(mouseMoveHandler)
-
-function mouseMoveHandler(e: MouseEvent) {
-  const mouseX = getMousePosition(e, canvas).x
-  if (mouseX > 0 && mouseX < canvas.width) {
-    paddle.x = mouseX - paddle.width / 2
+input.onMouseMove((pos) => {
+  if (pos.x > 0 && pos.x < canvas.width) {
+    paddle.x = pos.x - paddle.width / 2
   }
-}
+})
 
 function getCollision() {
   for (let c = 0; c < brickColumnCount; c++) {
@@ -84,9 +71,9 @@ function draw() {
     }
   }
 
-  if (rightPressed && paddle.x < canvas.width - paddle.width) {
+  if (input.isPressed("right") && paddle.x < canvas.width - paddle.width) {
     paddle.x += 7
-  } else if (leftPressed && paddle.x > 0) {
+  } else if (input.isPressed("left") && paddle.x > 0) {
     paddle.x -= 7
   }
 
