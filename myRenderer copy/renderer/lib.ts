@@ -1,3 +1,4 @@
+// export type Context = CanvasRenderingContext2D
 export interface Context {
   font: string
   color: string
