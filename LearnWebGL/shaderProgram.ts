@@ -2,7 +2,6 @@ import { ShaderProgramInfo } from "./lib"
 import { gl } from "./loader"
 import { createShaderProgram } from "./shaders"
 
-// TODO: change mult order
 const vsSource = `
   attribute vec4 aVertexPosition;
   uniform mat4 uModelViewMatrix;
@@ -15,7 +14,7 @@ const vsSource = `
 
 const fsSource = `
   void main() {
-    gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+    gl_FragColor = vec4(1.0, 0, 1.0, 1.0);
   }
 `
 

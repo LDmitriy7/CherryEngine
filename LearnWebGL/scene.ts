@@ -2,8 +2,6 @@ import { mat4 } from "gl-matrix"
 import { Buffers } from "./buffers"
 import { GL, ShaderProgramInfo, toRads } from "./lib"
 
-// TODO: experiment
-
 function setPositionAttribute(
   gl: GL,
   buffers: Buffers,
@@ -25,12 +23,12 @@ function setPositionAttribute(
   gl.enableVertexAttribArray(programInfo.attrLocations.vertexPosition)
 }
 
-export function drawScene(gl: GL, programInfo: ShaderProgramInfo, buffers: Buffers) {
+export function drawScene(
+  gl: GL,
+  programInfo: ShaderProgramInfo,
+  buffers: Buffers
+) {
   gl.clearColor(0, 0, 0, 1)
-  const clearDepth = gl.getParameter(gl.DEPTH_CLEAR_VALUE)
-  console.log({ clearDepth })
-  // gl.clearDepth(1)
-
   gl.enable(gl.DEPTH_TEST)
   gl.depthFunc(gl.LEQUAL)
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
@@ -44,7 +42,7 @@ export function drawScene(gl: GL, programInfo: ShaderProgramInfo, buffers: Buffe
   mat4.perspective(projectionMatrix, fieldOfView, aspect, zNear, zFar)
 
   const modelViewMatrix = mat4.create()
-  mat4.translate(modelViewMatrix, modelViewMatrix, [-0, 0, -6])
+  mat4.translate(modelViewMatrix, modelViewMatrix, [0, 0, -6])
 
   setPositionAttribute(gl, buffers, programInfo)
 

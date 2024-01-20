@@ -1,8 +1,9 @@
 import { GL } from "./lib"
 
-// TODO: experiment
 function createPositionBuffer(gl: GL) {
-  const positions = [1, 1, -1, 1, 1, -1, -1, -1]
+  const positions = [1, 1, -1, 1, 1, -1, -1, -1].map((i) => i * 2)
+  // const positions = [-1, 0, -0.7, -1, 0, 1]
+  // const positions = [1, 0, 0.7, -1, 0, 1, -0.7, -1, -1, 0, 0, 0]
   const buffer = gl.createBuffer()
   if (!buffer) throw new Error("Could not create buffer")
   gl.bindBuffer(gl.ARRAY_BUFFER, buffer)
