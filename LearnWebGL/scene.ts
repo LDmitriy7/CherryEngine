@@ -2,31 +2,54 @@ import { mat4 } from "gl-matrix"
 import { Buffers } from "./buffers"
 import { GL, ShaderProgramInfo, toRads } from "./lib"
 
-function setPositionAttribute(
+function setAttribute(
   gl: GL,
-  buffers: Buffers,
-  programInfo: ShaderProgramInfo
+  componentsNum: number,
+  buffer: WebGLBuffer,
+  attrLocation: number
 ) {
-  const componentsNum = 2
   const normalize = false
   const stride = 0
   const offset = 0
-  gl.bindBuffer(gl.ARRAY_BUFFER, buffers.position)
+  gl.bindBuffer(gl.ARRAY_BUFFER, buffer)
   gl.vertexAttribPointer(
-    programInfo.attrLocations.vertexPosition,
+    attrLocation,
     componentsNum,
     gl.FLOAT,
     normalize,
     stride,
     offset
   )
-  gl.enableVertexAttribArray(programInfo.attrLocations.vertexPosition)
+  gl.enableVertexAttribArray(attrLocation)
+}
+
+function setPositionAttribute(
+  gl: GL,
+  buffers: Buffers,
+  programInfo: ShaderProgramInfo
+) {
+  const attrLocation = programInfo.attrLocations.vertexPosition
+  const buffer = buffers.position
+  const componentsNum = 3
+  setAttribute(gl, componentsNum, buffer, attrLocation)
+}
+
+function setColorAttribute(
+  gl: GL,
+  buffers: Buffers,
+  programInfo: ShaderProgramInfo
+) {
+  const attrLocation = programInfo.attrLocations.vertexColor
+  const buffer = buffers.color
+  const componentsNum = 4
+  setAttribute(gl, componentsNum, buffer, attrLocation)
 }
 
 export function drawScene(
   gl: GL,
   programInfo: ShaderProgramInfo,
-  buffers: Buffers
+  buffers: Buffers,
+  cameraRotation: number
 ) {
   gl.clearColor(0, 0, 0, 1)
   gl.enable(gl.DEPTH_TEST)
@@ -43,8 +66,15 @@ export function drawScene(
 
   const modelViewMatrix = mat4.create()
   mat4.translate(modelViewMatrix, modelViewMatrix, [0, 0, -6])
+  mat4.rotate(
+    modelViewMatrix,
+    modelViewMatrix,
+    toRads(cameraRotation),
+    [1, 1, 1]
+  )
 
   setPositionAttribute(gl, buffers, programInfo)
+  setColorAttribute(gl, buffers, programInfo)
 
   gl.useProgram(programInfo.program)
 

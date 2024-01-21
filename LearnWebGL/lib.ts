@@ -4,6 +4,7 @@ export interface ShaderProgramInfo {
   program: WebGLProgram
   attrLocations: {
     vertexPosition: number
+    vertexColor: number 
   }
   uniformLocations: {
     projectionMatrix: WebGLUniformLocation
