@@ -1,5 +1,5 @@
 import { mat4 } from "gl-matrix"
-import { Buffers } from "./buffers"
+import { Buffers, VERTEX_INDEXES } from "./buffers"
 import { GL, ShaderProgramInfo, toRads } from "./lib"
 
 function setAttribute(
@@ -54,7 +54,6 @@ export function drawScene(
   gl.clearColor(0, 0, 0, 1)
   gl.enable(gl.DEPTH_TEST)
   gl.depthFunc(gl.LEQUAL)
-  gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
 
   const fieldOfView = toRads(45)
   const canvas = gl.canvas as HTMLCanvasElement // TODO: ?
@@ -76,6 +75,7 @@ export function drawScene(
   setPositionAttribute(gl, buffers, programInfo)
   setColorAttribute(gl, buffers, programInfo)
 
+  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, buffers.indices) // TODO: move
   gl.useProgram(programInfo.program)
 
   gl.uniformMatrix4fv(
@@ -90,6 +90,7 @@ export function drawScene(
   )
 
   const offset = 0
-  const vertexCount = 4
-  gl.drawArrays(gl.TRIANGLE_STRIP, offset, vertexCount)
+  const vertexCount = VERTEX_INDEXES.length
+  gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
+  gl.drawElements(gl.TRIANGLES, vertexCount, gl.UNSIGNED_SHORT, offset)
 }

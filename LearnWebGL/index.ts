@@ -8,20 +8,20 @@ function update(cameraRotation: number) {
   drawScene(gl, shaderProgramInfo, buffers, cameraRotation)
 }
 
-function loop(update: (dt: number) => void) {
+function loop(callback: (dt: number) => void) {
   let lastTime = 0
   function _loop(timeMS: number) {
     requestAnimationFrame(_loop)
     const time = timeMS * 0.001
     const deltaTime = time - lastTime
     lastTime = time
-    update(deltaTime)
+    callback(deltaTime)
   }
   _loop(0)
 }
 
 let rotation = 0
-const rotationSpeed = 25
+const rotationSpeed = 50
 
 loop((dt) => {
   rotation += dt * rotationSpeed
