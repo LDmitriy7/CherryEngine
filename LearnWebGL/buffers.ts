@@ -32,8 +32,7 @@ const faceColors = [
 const colors = faceColors.map((c) => fillArray(c, 4)).flat(2)
 
 function createPositionBuffer(gl: GL) {
-  const buffer = gl.createBuffer()
-  if (!buffer) throw new Error("Could not create buffer")
+  const buffer = createBuffer(gl)
   gl.bindBuffer(gl.ARRAY_BUFFER, buffer)
   gl.bufferData(
     gl.ARRAY_BUFFER,
@@ -44,8 +43,7 @@ function createPositionBuffer(gl: GL) {
 }
 
 function createColorBuffer(gl: GL) {
-  const buffer = gl.createBuffer()
-  if (!buffer) throw new Error("Could not create buffer")
+  const buffer = createBuffer(gl)
   gl.bindBuffer(gl.ARRAY_BUFFER, buffer)
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW)
   return buffer
@@ -90,10 +88,8 @@ export const VERTEX_INDEXES = [
   23, // left
 ]
 
-
 function createIndexBuffer(gl: GL) {
-  const buffer = gl.createBuffer()
-  if (!buffer) throw new Error("Could not create buffer")
+  const buffer = createBuffer(gl)
   gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, buffer)
   gl.bufferData(
     gl.ELEMENT_ARRAY_BUFFER,
@@ -103,14 +99,55 @@ function createIndexBuffer(gl: GL) {
   return buffer
 }
 
+function createBuffer(gl: GL) {
+  const buffer = gl.createBuffer()
+  if (!buffer) throw new Error("Couldn't create buffer")
+  return buffer
+}
+
+function createTextureBuffer(gl: GL) {
+  const buffer = createBuffer(gl)
+  gl.bindBuffer(gl.ARRAY_BUFFER, buffer)
+
+  const _ratio = 768 / 512
+  const _maxX = 1 / _ratio
+  const _maxY = 1
+  const textureCoordsRow = [0, 0, _maxX, 0, _maxX, _maxY, 0, _maxY]
+
+  const textureCoords = [
+    // Front
+    ...textureCoordsRow,
+    // Back
+    ...textureCoordsRow,
+    // Top
+    ...textureCoordsRow,
+    // Bottom
+    ...textureCoordsRow,
+    // Right
+    ...textureCoordsRow,
+    // Left
+    ...textureCoordsRow,
+  ]
+
+  gl.bufferData(
+    gl.ARRAY_BUFFER,
+    new Float32Array(textureCoords),
+    gl.STATIC_DRAW
+  )
+
+  return buffer
+}
+
 export class Buffers {
   position: WebGLBuffer
-  color: WebGLBuffer
+  // color: WebGLBuffer
   indices: WebGLBuffer
+  textureCoord: WebGLBuffer
 
   constructor(gl: GL) {
     this.position = createPositionBuffer(gl)
-    this.color = createColorBuffer(gl)
+    // this.color = createColorBuffer(gl)
     this.indices = createIndexBuffer(gl)
+    this.textureCoord = createTextureBuffer(gl)
   }
 }

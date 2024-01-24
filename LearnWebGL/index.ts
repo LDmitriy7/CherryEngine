@@ -2,10 +2,21 @@ import { Buffers } from "./buffers"
 import { gl } from "./loader"
 import { drawScene } from "./scene"
 import { shaderProgramInfo } from "./shaderProgram"
+import { createTexture } from "./textures"
+
+const buffers = new Buffers(gl)
+// const texture = createTexture(gl, "cubetexture.png")
+const texture = createTexture(gl, "bg.jpg")
 
 function update(cameraRotation: number) {
-  const buffers = new Buffers(gl)
-  drawScene(gl, shaderProgramInfo, buffers, cameraRotation)
+  drawScene(
+    gl,
+    shaderProgramInfo,
+    buffers,
+    cameraRotation,
+    textureOffset,
+    texture
+  )
 }
 
 function loop(callback: (dt: number) => void) {
@@ -21,9 +32,11 @@ function loop(callback: (dt: number) => void) {
 }
 
 let rotation = 0
-const rotationSpeed = 50
+let textureOffset = 0
+const rotationSpeed = 5
 
 loop((dt) => {
-  rotation += dt * rotationSpeed
   update(rotation)
+  rotation += dt * rotationSpeed
+  textureOffset += dt * 0.1
 })

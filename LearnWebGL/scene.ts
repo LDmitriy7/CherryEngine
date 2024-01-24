@@ -1,6 +1,7 @@
 import { mat4 } from "gl-matrix"
 import { Buffers, VERTEX_INDEXES } from "./buffers"
 import { GL, ShaderProgramInfo, toRads } from "./lib"
+import { createTexture } from "./textures"
 
 function setAttribute(
   gl: GL,
@@ -34,22 +35,35 @@ function setPositionAttribute(
   setAttribute(gl, componentsNum, buffer, attrLocation)
 }
 
-function setColorAttribute(
+function setTextureAttribute(
   gl: GL,
   buffers: Buffers,
   programInfo: ShaderProgramInfo
 ) {
-  const attrLocation = programInfo.attrLocations.vertexColor
-  const buffer = buffers.color
-  const componentsNum = 4
+  const attrLocation = programInfo.attrLocations.textureCoord
+  const buffer = buffers.textureCoord
+  const componentsNum = 2
   setAttribute(gl, componentsNum, buffer, attrLocation)
 }
+
+// function setColorAttribute(
+//   gl: GL,
+//   buffers: Buffers,
+//   programInfo: ShaderProgramInfo
+// ) {
+//   const attrLocation = programInfo.attrLocations.vertexColor
+//   const buffer = buffers.color
+//   const componentsNum = 4
+//   setAttribute(gl, componentsNum, buffer, attrLocation)
+// }
 
 export function drawScene(
   gl: GL,
   programInfo: ShaderProgramInfo,
   buffers: Buffers,
-  cameraRotation: number
+  cameraRotation: number,
+  textureOffsetX: number,
+  texture: WebGLTexture
 ) {
   gl.clearColor(0, 0, 0, 1)
   gl.enable(gl.DEPTH_TEST)
@@ -64,7 +78,7 @@ export function drawScene(
   mat4.perspective(projectionMatrix, fieldOfView, aspect, zNear, zFar)
 
   const modelViewMatrix = mat4.create()
-  mat4.translate(modelViewMatrix, modelViewMatrix, [0, 0, -6])
+  mat4.translate(modelViewMatrix, modelViewMatrix, [0, 0, -5])
   mat4.rotate(
     modelViewMatrix,
     modelViewMatrix,
@@ -73,7 +87,7 @@ export function drawScene(
   )
 
   setPositionAttribute(gl, buffers, programInfo)
-  setColorAttribute(gl, buffers, programInfo)
+  setTextureAttribute(gl, buffers, programInfo)
 
   gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, buffers.indices) // TODO: move
   gl.useProgram(programInfo.program)
@@ -88,6 +102,14 @@ export function drawScene(
     false,
     modelViewMatrix
   )
+
+  gl.uniform2f(programInfo.uniformLocations.textureOffset, textureOffsetX, 1)
+
+  const textureUnit = 0
+  gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true)
+  gl.activeTexture(gl.TEXTURE0 + textureUnit)
+  gl.bindTexture(gl.TEXTURE_2D, texture)
+  gl.uniform1i(programInfo.uniformLocations.sampler, textureUnit)
 
   const offset = 0
   const vertexCount = VERTEX_INDEXES.length
