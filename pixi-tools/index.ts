@@ -5,7 +5,7 @@ import {
   getRectTransformAnchor,
   RectTransform,
 } from "./rectTransform"
-import { BackgroundSprite, Sprite, TilingSprite } from "./sprite"
+import { BackgroundSprite, Sprite, _TilingSprite } from "./sprite"
 import { Label } from "./label"
 import { createApp } from "./app"
 
@@ -17,7 +17,7 @@ export {
   RectTransform,
   Sprite,
   Label,
-  TilingSprite,
+  _TilingSprite as TilingSprite,
   BackgroundSprite,
 }
 

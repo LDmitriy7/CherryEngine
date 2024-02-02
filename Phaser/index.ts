@@ -15,7 +15,7 @@ class Scene extends Phaser.Scene {
   }
 }
 
-var config: Phaser.Types.Core.GameConfig = {
+createGame({
   width,
   height,
   physics: {
@@ -25,6 +25,4 @@ var config: Phaser.Types.Core.GameConfig = {
     },
   },
   scene: [Scene],
-}
-
-createGame(config)
+})

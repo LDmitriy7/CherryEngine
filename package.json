@@ -21,6 +21,7 @@
 		"phaser": "^3.55.2",
 		"pixi.js": "^7.3.2",
 		"pixi.js-legacy": "^7.3.2",
-		"three": "^0.160.1"
+		"three": "^0.160.1",
+		"vite-plugin-glsl": "^1.2.1"
 	}
 }

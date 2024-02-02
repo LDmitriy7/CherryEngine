@@ -1,5 +1,6 @@
 import * as PIXI from "pixi.js"
 import { DESIGN_HEIGHT, MAX_RATIO } from "./lib"
+import {TilingSprite} from "./TilingSprite"
 
 export class Sprite extends PIXI.Sprite {
   constructor(src: string) {
@@ -9,7 +10,9 @@ export class Sprite extends PIXI.Sprite {
   }
 }
 
-export class TilingSprite extends PIXI.TilingSprite {
+
+export class _TilingSprite extends TilingSprite {
+// export class _TilingSprite extends PIXI.TilingSprite {
   constructor(src: string, textureWidth: number, textureHeight: number) {
     const texture = PIXI.Texture.from(src)
     super(texture, textureWidth, textureHeight)
@@ -17,7 +20,7 @@ export class TilingSprite extends PIXI.TilingSprite {
   }
 }
 
-export class BackgroundSprite extends TilingSprite {
+export class BackgroundSprite extends _TilingSprite {
   constructor(src: string, textureWidth: number, textureHeight: number) {
     super(src, textureWidth, textureHeight)
     const scale = (DESIGN_HEIGHT / textureHeight) * 1.05

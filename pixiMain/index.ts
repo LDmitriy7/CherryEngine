@@ -10,16 +10,14 @@ const label = createLabel()
 phone.scale.set(0.7)
 
 phone.addChild(label)
+
 app.stage.addChild(bg, phone)
 
-const fpsLabel = createLabel()
-fpsLabel.text = "123"
-app.stage.addChild(fpsLabel)
-
 app.ticker.add((dt) => {
-  // bg.tilePosition.x += dt * 0.1
-  bg.x += dt * 0.1
+  bg.tilePosition.x += dt * 0.5
 })
 
-
-app.ticker.add((dt) => (fpsLabel.text = Math.round(app.ticker.FPS)))
+// const fpsLabel = createLabel()
+// fpsLabel.text = "123"
+// app.stage.addChild(fpsLabel)
+// app.ticker.add((dt) => (fpsLabel.text = Math.round(app.ticker.FPS)))
